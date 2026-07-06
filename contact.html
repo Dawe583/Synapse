@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakt – Synapse</title>
+  <meta name="description" content="Ozvěte se studiu Synapse — nové projekty, spolupráce i kreativní nápady jsou vítány." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <section class="page ct-hero container">
+    <div class="page-hero">
+      <h1>Ozvěte se <span class="fw" data-word="nám"></span>.</h1>
+    </div>
+
+    <div class="ct-grid">
+      <div class="ct-photo" data-reveal><img src="/assets/contact-photo.png" alt="Synapse studio" /></div>
+
+      <div class="ct-info">
+        <p class="big">Jsme vždy <span class="fw" data-word="otevření"></span> novým projektům, spolupracím i <span class="fw" data-word="kreativním nápadům"></span>. Napište nám ohledně designu, vývoje, brandingu — nebo jen tak <span class="fw" data-word="pozdravte"></span>.</p>
+        <div class="ct-say" data-fade>
+          <h3>Napište nám</h3>
+          <a href="tel:+420777000198">+420 777 000 198</a>
+          <a href="mailto:hello@synapse.studio">hello@synapse.studio</a>
+        </div>
+      </div>
+
+      <div class="ct-form" data-fade="0.1">
+        <h3>Pošlete zprávu</h3>
+        <form action="#" method="post" onsubmit="alert('Děkujeme! Ozveme se co nejdřív.'); return false;">
+          <div>
+            <label for="f-name">Jméno</label>
+            <input id="f-name" name="name" type="text" required />
+          </div>
+          <div>
+            <label for="f-email">E-mail</label>
+            <input id="f-email" name="email" type="email" required />
+          </div>
+          <div>
+            <label for="f-subject">Předmět</label>
+            <select id="f-subject" name="subject">
+              <option>Ilustrace</option>
+              <option>Web design</option>
+              <option>Branding</option>
+              <option>Vývoj</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-msg">Zpráva</label>
+            <textarea id="f-msg" name="message" required></textarea>
+          </div>
+          <button type="submit">Pojďme si promluvit ↗</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog container" data-mount-blog></section>
+  <section class="faq container" data-mount-faq></section>
+
+  <script type="module" src="/src/js/page.js"></script>
+</body>
+</html>
