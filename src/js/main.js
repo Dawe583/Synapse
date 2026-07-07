@@ -3,6 +3,19 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import '../styles/main.css'
+import { REDUCED, initEffects } from './effects.js'
+
+// fáze 2/3 — samostatné efekt-moduly (každý bezpečný no-op, když cíle chybí)
+import { initPreloader } from './fx/preloader.js'
+import { initNavTransitions } from './fx/navTransitions.js'
+import { initCharReveal } from './fx/charReveal.js'
+import { initCollageDrift } from './fx/collageDrift.js'
+import { initThemeSwitch } from './fx/themeSwitch.js'
+import { initCursor } from './fx/cursor.js'
+import { initTilt } from './fx/tilt.js'
+import { initLivingBg } from './fx/livingBg.js'
+import { initSharedElement } from './fx/sharedElement.js'
+import { initHero3d } from './fx/hero3d.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -17,7 +30,14 @@ gsap.ticker.add((time) => lenis.raf(time * 1000))
 gsap.ticker.lagSmoothing(0)
 
 /* ---------- nav + footer (sdílené na všech stránkách) ---------- */
-const base = import.meta.env.BASE_URL
+// Robustní kořen webu — funguje z domény v kořeni, z podadresáře (GitHub Pages)
+// i lokálně. V dev je to origin/, v buildu odvozeno z URL modulu (bundly leží
+// v <root>/assets/, takže ../ z modulu = kořen nasazení).
+export const base = import.meta.env.DEV
+  ? new URL('/', location.href).href
+  : new URL('../', import.meta.url).href
+// Absolutní URL k assetu/stránce z cesty typu "/assets/x.jpg" nebo "work/x.html".
+export const asset = (p) => new URL(String(p).replace(/^\//, ''), base).href
 
 const swap = (label) =>
   `<span class="swap"><span class="swap-inner"><span>${label}</span><span>${label}</span></span></span>`
@@ -137,9 +157,15 @@ function mountSections() {
 
 // flip slova: <span class="fw" data-word="slovo"></span> naplní + animuje na scroll
 export function initFlipWords(root = document) {
+  // barvy záblesku bereme z CSS tokenů, ať zůstanou v souladu s :root
+  const cs = getComputedStyle(document.documentElement)
+  const accent = cs.getPropertyValue('--accent').trim() || '#0000EE'
+  const muted = cs.getPropertyValue('--muted').trim() || '#8B9DBC'
   root.querySelectorAll('.fw[data-word]').forEach((el) => {
     const w = el.dataset.word
     el.innerHTML = `<span class="fw-a">${w}</span><span class="fw-b">${w}</span>`
+    // reduced-motion: slovo zůstává staticky viditelné, bez flipu a záblesku
+    if (REDUCED) return
     const a = el.querySelector('.fw-a')
     const b = el.querySelector('.fw-b')
     gsap.timeline({
@@ -148,11 +174,14 @@ export function initFlipWords(root = document) {
     })
       .to(a, { yPercent: -110, duration: 0.7, ease: 'power3.inOut' })
       .to(b, { yPercent: -110, duration: 0.7, ease: 'power3.inOut' }, '<')
+      // 2.3 barevný záblesk: slovo dopadne v akcentové modré a doskočí na muted
+      .fromTo(b, { color: accent }, { color: muted, duration: 0.9, ease: 'power2.out' }, '<0.15')
   })
 }
 
 // slovní reveal nadpisů: každé slovo vyjede zpoza masky
 export function initHeadReveals(root = document) {
+  if (REDUCED) return // nadpisy nejsou v CSS skryté — bez splitu zůstávají čitelné
   root.querySelectorAll('.h-section, .page-hero h1, .wd-sec h2').forEach((h) => {
     ;[...h.childNodes].forEach((n) => {
       if (n.nodeType === 3) {
@@ -189,6 +218,7 @@ export function initHeadReveals(root = document) {
 
 // jemná parallaxa velkých obrázků
 export function initParallax(root = document) {
+  if (REDUCED) return
   root.querySelectorAll('.about-photo-big, .process-img, .work-collage > div, .wd-wide, .bp-cover, .ab-exp-img').forEach((el) => {
     gsap.fromTo(el, { y: 40 }, {
       y: -40,
@@ -202,6 +232,12 @@ export function initParallax(root = document) {
 export function initReveals(root = document) {
   root.querySelectorAll('[data-reveal]').forEach((el) => {
     const img = el.querySelector('img')
+    // reduced-motion: obrázky jsou v CSS zamaskované (clip-path) — odkryjeme je rovnou
+    if (REDUCED) {
+      gsap.set(el, { clipPath: 'inset(0% 0 0 0)' })
+      if (img) gsap.set(img, { scale: 1 })
+      return
+    }
     const tl = gsap.timeline({
       scrollTrigger: { trigger: el, start: 'top 88%' },
     })
@@ -213,6 +249,11 @@ export function initReveals(root = document) {
 // fade-up bloků
 export function initFades(root = document) {
   root.querySelectorAll('[data-fade]').forEach((el) => {
+    // reduced-motion: bloky jsou v CSS na opacity 0 — vrátíme je rovnou do finálního stavu
+    if (REDUCED) {
+      gsap.set(el, { opacity: 1, y: 0 })
+      return
+    }
     gsap.to(el, {
       opacity: 1,
       y: 0,
@@ -244,6 +285,10 @@ export function initFaq(root = document) {
 
 // společný boot pro všechny stránky
 export function boot(opts) {
+  // co nejdřív: intro overlay (homepage) a příchozí page-wipe odkryjí obsah
+  initPreloader()
+  initNavTransitions()
+
   injectChrome(opts)
   mountSections()
   initHeadReveals()
@@ -253,6 +298,20 @@ export function boot(opts) {
   initFades()
   initMarquees()
   initFaq()
+  initEffects() // fáze 1: reveal řádků, count-up, scroll-progress, magnetická tlačítka
+
+  // fáze 2/3
+  initCharReveal() // znakový reveal velkých display nápisů
+  initCollageDrift() // horizontální drift koláže projektů (home)
+  initThemeSwitch() // adaptivní nav nad tmavými sekcemi
+  initCursor() // vlastní kurzor
+  initTilt() // 3D tilt karet
+  initLivingBg() // jemné živé pozadí (home)
+  initSharedElement() // shared-element reveal hero (work → detail)
+  initHero3d() // dekorativní 3D wireframe (404)
+
+  // pozice se po injektu nav/footer a mountu sekcí mohla posunout
+  ScrollTrigger.refresh()
 }
 
 export { gsap, ScrollTrigger }

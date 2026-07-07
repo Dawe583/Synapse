@@ -4,7 +4,7 @@ export const PROJECTS = {
   'stellar-webovy-dashboard': {
     title: 'Stellar – Webový dashboard',
     lead: 'Stellar — datový dashboard, který mění složitou analytiku v přehledné podklady pro rozhodování.',
-    client: 'TechFlow Analytics', year: '2024', duration: '3 měsíce', role: 'Lead UI/UX Designer',
+    client: 'TechFlow Analytics', year: '2024', duration: '3 měsíce', role: 'UI/UX design',
     overview: 'Stellar je komplexní analytický dashboard pro týmy, které potřebují sledovat klíčové metriky, měřit výkon a rychle se rozhodovat. Výzvou bylo podat rozsáhlé datové sady v intuitivním a vizuálně čistém rozhraní, které snižuje kognitivní zátěž a zároveň maximalizuje vhled do dat.',
     challengeTitle: 'Příliš informací a matoucí struktura',
     challenge: 'Uživatelé se v dosavadních analytických nástrojích ztráceli — příliš informací najednou vedlo k rozhodovací paralýze. Rozhraní postrádalo vizuální hierarchii, klíčové metriky se hledaly obtížně a možnosti přizpůsobení byly minimální.',
@@ -15,7 +15,7 @@ export const PROJECTS = {
   'lumiere-mobilni-aplikace': {
     title: 'Lumiere – Mobilní aplikace UI/UX',
     lead: 'Lumiere — mobilní zážitek, který dělá každodenní rutiny jednoduché a příjemné.',
-    client: 'Lumiere Health', year: '2024', duration: '4 měsíce', role: 'Product Designer',
+    client: 'Lumiere Health', year: '2024', duration: '4 měsíce', role: 'Produktový design',
     overview: 'Lumiere je mobilní aplikace zaměřená na osobní pohodu a návyky. Cílem bylo navrhnout rozhraní, které motivuje k pravidelnému používání, aniž by působilo nátlakově — jemná gamifikace, čistá typografie a plynulé mikrointerakce.',
     challengeTitle: 'Přeplněné obrazovky a nízká retence',
     challenge: 'Původní aplikace trpěla přehlceným rozhraním a uživatelé ji po pár dnech opouštěli. Klíčové akce byly schované hluboko v navigaci a vizuální styl nepůsobil důvěryhodně.',
@@ -26,7 +26,7 @@ export const PROJECTS = {
   'echo-branding-identita': {
     title: 'Echo – Branding & identita',
     lead: 'Echo — soudržná identita značky, která odráží smysl, osobnost a konzistenci.',
-    client: 'Echo Studio', year: '2023', duration: '2 měsíce', role: 'Brand Designer',
+    client: 'Echo Studio', year: '2023', duration: '2 měsíce', role: 'Branding & identita',
     overview: 'Echo je kreativní studio, které potřebovalo identitu odpovídající jeho růstu. Vytvořili jsme kompletní vizuální systém — od loga přes typografii a barevnost po pravidla použití napříč digitálními i tištěnými médii.',
     challengeTitle: 'Roztříštěný vizuál bez jasného příběhu',
     challenge: 'Značka používala nekonzistentní vizuální prvky napříč kanály — jiné barvy na webu, jiné v prezentacích. Chyběl jednotný příběh i pravidla, jak s identitou pracovat.',
@@ -37,7 +37,7 @@ export const PROJECTS = {
   'nebrio-eshop-platforma': {
     title: 'Nebrio – E-commerce platforma',
     lead: 'Nebrio — nákupní zážitek, který prodává: rychlý, přehledný a bez tření.',
-    client: 'Nebrio Commerce', year: '2023', duration: '5 měsíců', role: 'UI/UX Designer & Developer',
+    client: 'Nebrio Commerce', year: '2023', duration: '5 měsíců', role: 'UI/UX design & vývoj',
     overview: 'Nebrio je e-commerce platforma pro střední a větší obchody. Naším úkolem byl redesign nákupního procesu od katalogu po checkout s důrazem na konverze a výkon na mobilu.',
     challengeTitle: 'Dlouhý checkout a vysoká míra opuštění košíku',
     challenge: 'Pětikrokový checkout, nepřehledné varianty produktů a pomalé načítání vedly k nadprůměrné míře opuštění košíku, zejména na mobilních zařízeních.',
@@ -48,7 +48,7 @@ export const PROJECTS = {
   'vortex-sprava-socialnich-siti': {
     title: 'Vortex – Správa sociálních sítí',
     lead: 'Vortex — jeden nástroj pro všechny sítě: plánování, publikace i analytika.',
-    client: 'Vortex Media', year: '2023', duration: '3 měsíce', role: 'Product Designer',
+    client: 'Vortex Media', year: '2023', duration: '3 měsíce', role: 'Produktový design',
     overview: 'Vortex pomáhá týmům spravovat obsah napříč sociálními sítěmi z jednoho místa. Navrhli jsme rozhraní kalendáře, schvalovacích workflow a reportů tak, aby zvládly agenturní tempo.',
     challengeTitle: 'Chaos v obsahu a zdlouhavé schvalování',
     challenge: 'Týmy plánovaly obsah v tabulkách a schvalovaly e-mailem — verze se ztrácely a termíny hořely. Chyběl jednotný přehled o tom, co, kde a kdy vyjde.',
@@ -59,7 +59,7 @@ export const PROJECTS = {
   'alcove-projektovy-nastroj': {
     title: 'Alcove – Nástroj pro řízení projektů',
     lead: 'Alcove — řízení projektů, které nepřekáží práci: přehled bez mikromanagementu.',
-    client: 'Alcove Labs', year: '2022', duration: '4 měsíce', role: 'Lead UI/UX Designer',
+    client: 'Alcove Labs', year: '2022', duration: '4 měsíce', role: 'UI/UX design',
     overview: 'Alcove je projektový nástroj pro malé kreativní týmy. Cílem bylo najít rovnováhu mezi jednoduchostí osobního task manageru a silou týmové platformy.',
     challengeTitle: 'Nástroje buď příliš jednoduché, nebo příliš složité',
     challenge: 'Týmy přerostly jednoduché to-do aplikace, ale enterprise nástroje je zahltily funkcemi, které nikdo nepoužíval. Nastavování projektů zabíralo víc času než práce samotná.',
@@ -70,7 +70,7 @@ export const PROJECTS = {
   'crescendo-hudebni-streaming': {
     title: 'Crescendo – Hudební streaming',
     lead: 'Crescendo — objevování hudby postavené na náladě, ne na algoritmickém stereotypu.',
-    client: 'Crescendo Audio', year: '2022', duration: '3 měsíce', role: 'UI/UX Designer',
+    client: 'Crescendo Audio', year: '2022', duration: '3 měsíce', role: 'UI/UX design',
     overview: 'Crescendo je streamovací služba zaměřená na nezávislé interprety. Navrhli jsme zážitek objevování hudby podle nálady a kontextu, s důrazem na vizuální identitu umělců.',
     challengeTitle: 'Nekonečné seznamy bez emocí',
     challenge: 'Objevování hudby se smrsklo na scrollování nekonečnými seznamy. Umělci splývali, playlist vypadal jako tabulka a poslech ztrácel atmosféru.',
@@ -81,7 +81,7 @@ export const PROJECTS = {
   'nexus-cloudove-uloziste': {
     title: 'Nexus – Cloudové úložiště',
     lead: 'Nexus — soubory v cloudu srozumitelně: sdílení a spolupráce bez zbytečných kroků.',
-    client: 'Nexus Cloud', year: '2021', duration: '4 měsíce', role: 'Product Designer',
+    client: 'Nexus Cloud', year: '2021', duration: '4 měsíce', role: 'Produktový design',
     overview: 'Nexus je cloudové úložiště pro firmy. Přepracovali jsme správu souborů, sdílení a oprávnění tak, aby byly pochopitelné i pro netechnické uživatele.',
     challengeTitle: 'Oprávnění, kterým nikdo nerozuměl',
     challenge: 'Systém sdílení byl tak složitý, že uživatelé raději posílali soubory e-mailem. Nejasné stavy synchronizace podkopávaly důvěru v platformu.',
@@ -92,7 +92,7 @@ export const PROJECTS = {
   'quantum-virtualni-realita': {
     title: 'Quantum – Virtuální realita',
     lead: 'Quantum — VR zážitek, který přenáší vzdělávání do prostoru a pohybu.',
-    client: 'Quantum XR', year: '2021', duration: '6 měsíců', role: 'UX Designer & 3D Artist',
+    client: 'Quantum XR', year: '2021', duration: '6 měsíců', role: 'UX design & 3D',
     overview: 'Quantum je vzdělávací VR platforma. Navrhovali jsme prostorová rozhraní, navigaci gesty a onboarding, který zvládnou i uživatelé, kteří mají headset poprvé na hlavě.',
     challengeTitle: 'Rozhraní z plochých obrazovek ve 3D prostoru nefungují',
     challenge: 'První prototypy přenášely 2D vzory do VR — plovoucí okna a drobná tlačítka způsobovaly únavu očí a frustraci. Uživatelé se v prostoru ztráceli.',

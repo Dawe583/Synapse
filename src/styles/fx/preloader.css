@@ -1,0 +1,27 @@
+/* ============ SYNAPSE — fx: intro preloader (homepage) ============ */
+/* Fullscreen overlay v modré, vycentrovaný editorial wordmark v krémové.
+   Injektuje a řídí src/js/fx/preloader.js — po dojetí intro se element z DOM
+   odstraní. pointer-events:none => nikdy neblokuje kliky pod sebou. */
+
+.fx-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  pointer-events: none;   /* nikdy neblokuje interakci s obsahem pod sebou */
+  will-change: transform;
+}
+
+.fx-preloader__word {
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  font-size: clamp(1.25rem, 3.4vw, 2.25rem);
+  line-height: 1;
+  white-space: nowrap;
+}

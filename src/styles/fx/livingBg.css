@@ -1,0 +1,59 @@
+/* ============ SYNAPSE — fx: living background (hero + finale) ============ */
+/* Velmi jemná dekorativní vrstva: pomalu driftující tenká mřížka v barvách
+   značky. Injektuje ji src/js/fx/livingBg.js jako první dítě .hero a .finale.
+   Trik se z-indexem: isolation na sekci vytvoří stacking context a vrstva s
+   negativním z-indexem se pak vykreslí NAD vlastním pozadím sekce, ale POD
+   veškerým obsahem — bez zásahu do existujících prvků. Pohyb řídí @keyframes;
+   při prefers-reduced-motion je vrstva statická (animation:none). */
+
+/* Positioning + stacking kontext na cílových sekcích.
+   (Nesahá na cizí CSS — jen přidává nová pravidla pro .hero/.finale.) */
+.hero,
+.finale {
+  position: relative;
+  isolation: isolate;
+}
+
+.fx-livingbg {
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* nad pozadím sekce, pod obsahem — díky isolation výše */
+  pointer-events: none;
+  overflow: hidden;
+  background-repeat: repeat;
+}
+
+/* HERO — světlé pozadí: tenké modré linky velmi nízké opacity (~0.05). */
+.hero .fx-livingbg {
+  background-image:
+    repeating-linear-gradient(to right, rgba(13, 52, 121, 0.05) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(to bottom, rgba(13, 52, 121, 0.05) 0 1px, transparent 1px 64px);
+  animation: fx-livingbg-drift-a 34s linear infinite;
+}
+
+/* FINALE — tmavé (modré) pozadí: jemné krémové linky velmi nízké opacity. */
+.finale .fx-livingbg {
+  background-image:
+    repeating-linear-gradient(to right, rgba(238, 237, 228, 0.05) 0 1px, transparent 1px 72px),
+    repeating-linear-gradient(to bottom, rgba(238, 237, 228, 0.05) 0 1px, transparent 1px 72px);
+  animation: fx-livingbg-drift-b 42s linear infinite;
+}
+
+/* Posun přesně o jednu buňku => nekonečná smyčka bez viditelného skoku. */
+@keyframes fx-livingbg-drift-a {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 64px 64px, 64px 64px;
+  }
+}
+
+@keyframes fx-livingbg-drift-b {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: -72px 72px, -72px 72px;
+  }
+}

@@ -79,7 +79,7 @@
   gap: 40px;
   margin-top: 110px;
   font-size: 15px;
-  text-align: justify;
+  text-align: left;
 }
 .about-mid { display: flex; flex-direction: column; gap: 40px; }
 .about-photo { width: min(150px, 40%); }
@@ -104,7 +104,7 @@
 .work { padding-top: 110px; padding-bottom: 110px; position: relative; }
 
 .work-head { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; align-items: start; }
-.work-head-right h2 { text-align: justify; }
+.work-head-right h2 { text-align: left; }
 .work-head-right .body-sm { max-width: 420px; margin-top: 28px; }
 .work-head-right .fw { color: var(--muted); }
 .work-head-right { display: flex; flex-direction: column; align-items: flex-start; }
@@ -159,8 +159,9 @@
 
 .services-deck {
   position: relative;
-  width: min(190px, 44vw);
+  width: min(460px, 78vw);
   aspect-ratio: 1172 / 1485;
+  max-height: 58vh; /* ať se i s popisem a labely vejde do viewportu při pinnutí */
   margin: 0 auto;
 }
 .services-deck img {
@@ -173,8 +174,18 @@
 }
 .services-deck img:first-child { opacity: 1; }
 
+/* popis aktivní služby — mění se se scroll-cyklem decku (řídí home.js) */
+.services-desc {
+  max-width: 540px;
+  margin: 30px auto 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(13, 52, 121, 0.8);
+  min-height: 3.6em; /* rezervace výšky, ať layout při změně textu neposkakuje */
+}
+
 .services-labels {
-  margin-top: 110px;
+  margin-top: 34px;
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -189,7 +200,7 @@
 /* ---------- jak pracujeme ---------- */
 
 .process { padding-top: 90px; padding-bottom: 100px; }
-.process h2 { max-width: 760px; margin-top: 12px; text-align: justify; }
+.process h2 { max-width: 760px; margin-top: 12px; text-align: left; }
 .process .fw { color: var(--muted); }
 
 .process-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; margin-top: 80px; align-items: start; }
@@ -225,7 +236,7 @@
 /* ---------- zkušenosti ---------- */
 
 .xp { padding-top: 110px; padding-bottom: 110px; }
-.xp h2 { max-width: 640px; margin-top: 12px; text-align: justify; }
+.xp h2 { max-width: 640px; margin-top: 12px; text-align: left; }
 .xp .fw { color: var(--muted); }
 
 .xp-table { margin-top: 70px; }
@@ -246,7 +257,7 @@
 
 .blog { padding-top: 30px; padding-bottom: 110px; }
 .blog-head { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; margin-top: 12px; align-items: end; }
-.blog-head h2 { text-align: justify; max-width: 560px; }
+.blog-head h2 { text-align: left; max-width: 560px; }
 .blog-head .fw { color: var(--muted); }
 .blog-head .body-sm { max-width: 360px; }
 
@@ -259,7 +270,7 @@
 /* ---------- faq ---------- */
 
 .faq { padding-bottom: 120px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-.faq-head h2 { margin-top: 12px; text-align: justify; max-width: 460px; }
+.faq-head h2 { margin-top: 12px; text-align: left; max-width: 460px; }
 .faq-head .fw { color: var(--muted); }
 
 /* ---------- finale (2026 + CTA) ---------- */
@@ -274,7 +285,7 @@
 .finale-col-sm { height: 260px; width: min(140px, 24vw); }
 
 .finale-cta { margin-top: 90px; }
-.finale-cta h2 { max-width: 560px; text-align: justify; }
+.finale-cta h2 { max-width: 560px; text-align: left; }
 .finale-cta .fw { color: var(--muted); }
 
 .finale-contact {
@@ -316,7 +327,8 @@
 
 @media (max-width: 600px) {
   .blog-grid { grid-template-columns: 1fr; }
-  .about-badge { display: none; }
+  /* badge zůstává viditelný a točí se i na mobilu (jen menší, ať neruší layout) */
+  .about-badge { width: 64px; height: 64px; }
   .finale-top { flex-direction: column; align-items: center; }
   .finale-year { align-items: center; text-align: center; }
 }

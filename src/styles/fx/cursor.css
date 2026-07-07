@@ -1,0 +1,36 @@
+/* ============ SYNAPSE — fx: vlastní kurzor ============ */
+/* Malý kruh, který doprovází nativní kurzor (ten NEschováváme — bezpečnější).
+   mix-blend-mode: difference drží ring čitelný nad krémovými i modrými plochami.
+   pointer-events:none => nikdy neblokuje interakci. Řídí src/js/fx/cursor.js.
+   Pozici (x/y), zvětšení (scale) i zobrazení (opacity) ovládá GSAP inline —
+   zde jen statická podoba prstence a hover vzhled. */
+
+.fx-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--blue);
+  background: transparent;
+  pointer-events: none; /* nikdy neblokuje kliky pod sebou */
+  z-index: 400;
+  mix-blend-mode: difference; /* čitelnost na cream i blue */
+  opacity: 0; /* zobrazí se až po prvním pohybu / vstupu myši (řídí JS) */
+  will-change: transform;
+}
+
+/* nad interaktivními prvky: JS zvětší scale a přidá tuto třídu (jemné vyplnění) */
+.fx-cursor.is-hover {
+  background: var(--blue);
+}
+
+/* pojistka: na dotykových zařízeních / při reduced-motion nikdy nezobrazovat
+   (JS už je no-op, toto je jen druhá vrstva jistoty) */
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .fx-cursor {
+    display: none !important;
+  }
+}

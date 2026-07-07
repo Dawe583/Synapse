@@ -1,0 +1,17 @@
+/* ============ SYNAPSE — fx: barevný wipe přechod mezi stránkami ============ */
+/* Fixed fullscreen overlay v modré. Ve výchozím stavu je scaleY(0) s originem
+   dole => zcela skrytý a (pointer-events:none) nikdy neblokuje interakci ani
+   navigaci. Řídí ho src/js/fx/navTransitions.js:
+     - ODCHOD: origin bottom, scaleY 0→1 (vyjede zdola přes obsah), pak navigace.
+     - PŘÍCHOD: origin top, scaleY 1→0 (odjede nahoru pryč).
+   will-change se zapíná pouze po dobu animace (z JS), ne trvale. */
+
+.fx-nav-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 250; /* nad nav (100), pod preloaderem (300) */
+  background: var(--blue);
+  transform: scaleY(0);
+  transform-origin: center bottom;
+  pointer-events: none; /* NIKDY neblokuje kliky/navigaci pod sebou */
+}

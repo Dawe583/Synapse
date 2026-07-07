@@ -1,4 +1,5 @@
 import { boot, gsap, ScrollTrigger } from './main.js'
+import { REDUCED } from './effects.js'
 import '../styles/home.css'
 
 boot()
@@ -15,31 +16,63 @@ function initDeckCycle(selector, interval = 2.2) {
     gsap.fromTo(imgs[i], { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.inOut' })
   }, interval * 1000)
 }
-initDeckCycle('.hero-deck')
+if (!REDUCED) initDeckCycle('.hero-deck')
 
 /* ---------- služby: scroll-řízený stack (pin + cyklus obrázků) ---------- */
 const deck = document.querySelector('.services-deck')
 const labels = document.querySelectorAll('.services-labels li')
+const servicesDesc = document.querySelector('.services-desc')
+
+// krátký popis ke každé službě (v pořadí obrázků/labelů)
+const SERVICE_DESC = [
+  'Navrhujeme intuitivní rozhraní a promyšlené uživatelské cesty — od výzkumu a wireframů po prototypy, které se skvěle používají.',
+  'Stavíme rychlé, responzivní a přístupné weby — čistý kód, plynulé animace a výkon, na kterém záleží.',
+  'Budujeme soudržné vizuální identity — logo, typografie, barvy i systém, který značce dává jasný a rozpoznatelný hlas.',
+  'Tvoříme obsah a vizuály pro sociální sítě — konzistentní, poutavé a šité na míru publiku i platformě.',
+  'Kreslíme autorské ilustrace a ikony, které posilují příběh značky a dávají produktu osobitost.',
+]
+
 if (deck) {
   const imgs = deck.querySelectorAll('img')
   let current = 0
   labels[0].classList.add('is-active')
-  ScrollTrigger.create({
-    trigger: '.services-stage',
-    start: 'top 20%',
-    end: '+=1600',
-    pin: true,
-    scrub: true,
-    onUpdate(self) {
-      const idx = Math.min(imgs.length - 1, Math.floor(self.progress * imgs.length))
-      if (idx === current) return
-      gsap.to(imgs[current], { opacity: 0, duration: 0.35 })
-      gsap.fromTo(imgs[idx], { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.35 })
-      labels[current].classList.remove('is-active')
-      labels[idx].classList.add('is-active')
-      current = idx
-    },
-  })
+  if (servicesDesc) servicesDesc.textContent = SERVICE_DESC[0]
+
+  // plynulá výměna popisu při přepnutí služby
+  const setDesc = (idx) => {
+    if (!servicesDesc) return
+    gsap.to(servicesDesc, {
+      opacity: 0,
+      y: -8,
+      duration: 0.2,
+      ease: 'power1.in',
+      onComplete: () => {
+        servicesDesc.textContent = SERVICE_DESC[idx] || ''
+        gsap.fromTo(servicesDesc, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' })
+      },
+    })
+  }
+
+  // reduced-motion: bez pinu a scrubu — zůstává statická první služba (první obrázek + label + popis)
+  if (!REDUCED) {
+    ScrollTrigger.create({
+      trigger: '.services-stage',
+      start: 'top 20%',
+      end: '+=1600',
+      pin: true,
+      scrub: true,
+      onUpdate(self) {
+        const idx = Math.min(imgs.length - 1, Math.floor(self.progress * imgs.length))
+        if (idx === current) return
+        gsap.to(imgs[current], { opacity: 0, duration: 0.35, overwrite: 'auto' })
+        gsap.fromTo(imgs[idx], { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.35, overwrite: 'auto' })
+        labels[current].classList.remove('is-active')
+        labels[idx].classList.add('is-active')
+        setDesc(idx)
+        current = idx
+      },
+    })
+  }
 }
 
 /* ---------- projekty: plovoucí náhled u kurzoru ---------- */
@@ -62,7 +95,7 @@ if (floatImg && matchMedia('(pointer: fine)').matches) {
 
 /* ---------- reference: automatická rotace citací ---------- */
 const voices = document.querySelectorAll('.voice')
-if (voices.length) {
+if (voices.length && !REDUCED) {
   let v = 0
   setInterval(() => {
     const prev = voices[v]
@@ -73,22 +106,26 @@ if (voices.length) {
 }
 
 /* ---------- entrance: nav + hero deck ---------- */
-gsap.from('.site-nav', { y: -24, opacity: 0, duration: 0.7, ease: 'power2.out' })
-gsap.from('.hero-deck', { scale: 0.94, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.15 })
+if (!REDUCED) {
+  gsap.from('.site-nav', { y: -24, opacity: 0, duration: 0.7, ease: 'power2.out' })
+  gsap.from('.hero-deck', { scale: 0.94, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.15 })
+}
 
 /* ---------- wordmark: písmena po jednom + jemná parallaxa ---------- */
 const wm = document.querySelector('.wordmark')
 wm.innerHTML = [...wm.textContent].map((c) => `<span class="wm-l">${c}</span>`).join('')
-gsap.from('.wordmark .wm-l', {
-  yPercent: 60,
-  opacity: 0,
-  duration: 0.9,
-  ease: 'power4.out',
-  stagger: 0.05,
-  scrollTrigger: { trigger: wm, start: 'top 92%' },
-})
-gsap.fromTo(wm, { yPercent: 12 }, {
-  yPercent: 0,
-  ease: 'none',
-  scrollTrigger: { trigger: wm, start: 'top bottom', end: 'top 40%', scrub: true },
-})
+if (!REDUCED) {
+  gsap.from('.wordmark .wm-l', {
+    yPercent: 60,
+    opacity: 0,
+    duration: 0.9,
+    ease: 'power4.out',
+    stagger: 0.05,
+    scrollTrigger: { trigger: wm, start: 'top 92%' },
+  })
+  gsap.fromTo(wm, { yPercent: 12 }, {
+    yPercent: 0,
+    ease: 'none',
+    scrollTrigger: { trigger: wm, start: 'top bottom', end: 'top 40%', scrub: true },
+  })
+}

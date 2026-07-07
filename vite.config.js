@@ -3,8 +3,11 @@ import { defineConfig } from 'vite'
 
 const r = (p) => resolve(__dirname, p)
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   appType: 'mpa',
+  // build: relativní cesty → web funguje z kořene domény i z podadresáře
+  // (GitHub Pages). dev: kořen '/' kvůli hladkému dev-serveru.
+  base: command === 'build' ? './' : '/',
   build: {
     rollupOptions: {
       input: {
@@ -34,4 +37,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))

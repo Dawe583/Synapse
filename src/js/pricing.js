@@ -1,4 +1,5 @@
 import { boot, gsap } from './main.js'
+import { REDUCED } from './effects.js'
 import '../styles/pages.css'
 import '../styles/home.css'
 
@@ -6,7 +7,7 @@ boot()
 
 // rotace citací (stejná jako na homepage)
 const voices = document.querySelectorAll('.voice')
-if (voices.length) {
+if (voices.length && !REDUCED) {
   let v = 0
   setInterval(() => {
     const prev = voices[v]

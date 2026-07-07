@@ -1,0 +1,8 @@
+/* ============ SYNAPSE — fx: adaptivní navigace nad tmavými sekcemi ============ */
+/* Jemný přechod barvy odkazů navigace při přepnutí třídy 'nav-dark' na <html>.
+   Vlastní přebarvení (na krémovou) zajišťuje pravidlo v main.css:
+   '.nav-dark .site-nav a { color: var(--cream) }'. Zde jen změkčujeme přechod. */
+
+.site-nav a {
+  transition: color 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}

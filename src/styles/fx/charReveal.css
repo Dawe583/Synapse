@@ -1,0 +1,16 @@
+/* ============ SYNAPSE — znakový reveal DISPLAY nápisů ============ */
+/* Maska na znak: overflow:hidden je aktivní jen během splitu (třída
+   .is-char-split na cílovém elementu), po dokončení animace se sundá,
+   aby žádný filtr/overflow trvale neořezával obří verzálky. */
+
+/* jeden logický řádek — drží znaky pohromadě jako JEDEN flex/inline prvek
+   (u .finale-contact tím pádem gap:2vw zůstane jen mezi textem a šipkou) */
+.cr-line { display: inline-block; }
+
+/* maska kolem znaku */
+.cr-mask { display: inline-block; vertical-align: bottom; }
+.is-char-split .cr-mask { overflow: hidden; }
+
+/* vnitřní obal se znakem (to, co se animuje) */
+.cr-mask > span { display: inline-block; }
+.is-char-split .cr-mask > span { will-change: transform; }

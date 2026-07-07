@@ -1,0 +1,28 @@
+/* ============ SYNAPSE — fx: 3D tilt karet na hover ============ */
+/* Karty (.wk-card, .blog-card, .bl-card) se při hoveru jemně naklápějí
+   za kurzorem (±4°). Perspektivu i rotaci řídí GSAP inline přes
+   transformPerspective + rotationX/rotationY (src/js/fx/tilt.js) — zde jen
+   3D kontext a will-change omezený na dobu interakce.
+   Náklon je na KARTĚ; existující hover efekty (grayscale→barva, zoom obrázku
+   přes .wk-card img, overlay .wk-view) běží na .wk-img / img a tímto transformem
+   nejsou dotčeny (jiný element, jiná transform-osa). */
+
+.fx-tilt {
+  transform-style: preserve-3d;
+}
+
+/* will-change jen po dobu hoveru (rule 6 — střídmě, ne trvale na všech kartách) */
+.fx-tilt:hover {
+  will-change: transform;
+}
+
+/* pojistka: reduced-motion / dotyk — žádný náklon.
+   (JS je za těchto podmínek no-op a třídu .fx-tilt vůbec nepřidá; toto je jen
+   druhá vrstva jistoty, aby obsah nikdy nezůstal transformovaný.) */
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .fx-tilt {
+    transform: none !important;
+    transform-style: flat;
+    will-change: auto;
+  }
+}

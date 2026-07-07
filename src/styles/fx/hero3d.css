@@ -1,0 +1,21 @@
+/* ============ SYNAPSE — fx: dekorativní 3D wireframe (404) ============ */
+/* Canvas s rotujícím drátěným ikosaedrem injektuje src/js/fx/hero3d.js jako
+   první dítě sekce '.nf'. Trik se z-indexem shodný s livingBg: isolation na
+   '.nf' vytvoří stacking context a canvas s negativním z-indexem se vykreslí
+   NAD vlastním pozadím sekce, ale POD veškerým obsahem (h1, obrázek, odkaz).
+   Dekorace je aria-hidden a nezachytává pointer — nikdy neruší čitelnost. */
+
+.nf {
+  position: relative;
+  isolation: isolate;
+}
+
+.fx-hero3d {
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* nad pozadím sekce, pod obsahem — díky isolation výše */
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* CSS řídí zobrazovací velikost; backing store (dpr) nastavuje JS */
+}
